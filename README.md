@@ -1,19 +1,14 @@
 # Mars Rover Detector  
 
 ## Under construction  🧱👷:
-- TODO:(Handle exceptions)
+- TODO:(Check buttons)
 
 ## Table of Contents
 
--   [Mars Rover App](#dogs_quiz_app)
-  - [Introduction](#introduction)
+  - [Mars Rover App](#mars_rover_app)
   - [Prerequisites](#prerequisites)
   - [Run](#run)
-  - [Launching app](#launching-app)
  
-
-## Introduction
-
 
 
 ## Prerequisites
@@ -28,13 +23,10 @@
 1. On VS Code select the device on the bottom bar.
 
 
-## Launching app
-
-
 
 # Application
 
 
-
+To start using the app click in the top right corner to set the grid size, start position, and add the obstacles, after that you will need to introduce commands (FRL).To start again use reset button.
 
 
