@@ -5,15 +5,10 @@
 
 ## Table of Contents
 
--   [Mars Rover App](#dogs_quiz_app)
-  - [Introduction](#introduction)
+  - [Mars Rover App](#mars_rover_app)
   - [Prerequisites](#prerequisites)
   - [Run](#run)
-  - [Launching app](#launching-app)
  
-
-## Introduction
-
 
 
 ## Prerequisites
