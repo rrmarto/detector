@@ -1,5 +1,5 @@
-import 'package:detector/features/mars_rover/persistence/blocs/grid_cubit/grid_cubit.dart';
-import 'package:detector/features/mars_rover/persistence/blocs/mars_rover_cubit/mars_rover_cubit.dart';
+import 'package:detector/features/mars_rover/blocs/grid_cubit/grid_cubit.dart';
+import 'package:detector/features/mars_rover/blocs/mars_rover_cubit/mars_rover_cubit.dart';
 import 'package:detector/features/mars_rover/persistence/models/grid_size.dart';
 import 'package:detector/features/mars_rover/ui/screens/interactive_grid.dart';
 import 'package:detector/features/mars_rover/ui/widgets/board_actions.dart';
@@ -180,6 +180,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       controller: _textEditingController,
                                       maxLines: null,
                                       maxLength: null,
+                                      textCapitalization:
+                                          TextCapitalization.characters,
                                       onChanged: (value) {
                                         setState(() {});
                                       },
@@ -191,7 +193,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       validator: (value) {
                                         final RegExp regExp =
                                             RegExp(r'^[FLR]+$');
-                                        if (!regExp.hasMatch(value!)) {
+                                        if (!regExp
+                                            .hasMatch(value!.toUpperCase())) {
                                           return 'Only F,L,R are allowed';
                                         }
                                         return null;
@@ -251,7 +254,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               direction: gridCubit.direction,
                                               position: gridCubit.startPosition,
                                               instructions:
-                                                  _textEditingController.text,
+                                                  _textEditingController.text
+                                                      .toUpperCase(),
                                               obstacles: gridCubit.obstacles,
                                               gridSize: gridCubit.gridSize,
                                             );

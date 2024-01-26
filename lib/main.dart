@@ -1,5 +1,5 @@
-import 'package:detector/features/mars_rover/persistence/blocs/grid_cubit/grid_cubit.dart';
-import 'package:detector/features/mars_rover/persistence/blocs/mars_rover_cubit/mars_rover_cubit.dart';
+import 'package:detector/features/mars_rover/blocs/grid_cubit/grid_cubit.dart';
+import 'package:detector/features/mars_rover/blocs/mars_rover_cubit/mars_rover_cubit.dart';
 import 'package:detector/features/mars_rover/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

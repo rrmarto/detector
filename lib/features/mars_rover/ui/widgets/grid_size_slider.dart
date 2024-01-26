@@ -1,4 +1,4 @@
-import 'package:detector/features/mars_rover/persistence/blocs/grid_cubit/grid_cubit.dart';
+import 'package:detector/features/mars_rover/blocs/grid_cubit/grid_cubit.dart';
 import 'package:detector/features/mars_rover/persistence/models/grid_size.dart';
 import 'package:flutter/material.dart';
 

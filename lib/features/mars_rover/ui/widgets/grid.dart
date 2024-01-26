@@ -1,4 +1,4 @@
-import 'package:detector/features/mars_rover/persistence/blocs/grid_cubit/grid_cubit.dart';
+import 'package:detector/features/mars_rover/blocs/grid_cubit/grid_cubit.dart';
 import 'package:detector/features/mars_rover/ui/widgets/directions_board.dart';
 import 'package:detector/features/mars_rover/ui/widgets/grid_size_slider.dart';
 import 'package:detector/features/mars_rover/ui/widgets/round_button.dart';
