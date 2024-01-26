@@ -1,7 +1,7 @@
 # Mars Rover Detector  
 
 ## Under construction  🧱👷:
-- TODO:(Handle exceptions)
+- TODO:(Check buttons)
 
 ## Table of Contents
 
@@ -28,13 +28,10 @@
 1. On VS Code select the device on the bottom bar.
 
 
-## Launching app
-
-
 
 # Application
 
 
-
+To start using the app click in the top right corner to set the grid size, start position, and add the obstacles, after that you will need to introduce commands (FRL).To start again use reset button.
 
 
