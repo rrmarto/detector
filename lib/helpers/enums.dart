@@ -4,3 +4,10 @@ enum RoverDirection {
   south,
   west;
 }
+
+enum GridStateEnum {
+  initial,
+  startPosition,
+  obstacles,
+  finished,
+}

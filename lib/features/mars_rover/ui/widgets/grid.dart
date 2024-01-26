@@ -2,9 +2,11 @@ import 'package:detector/features/mars_rover/persistence/blocs/grid_cubit/grid_c
 import 'package:detector/features/mars_rover/ui/widgets/directions_board.dart';
 import 'package:detector/features/mars_rover/ui/widgets/grid_size_slider.dart';
 import 'package:detector/features/mars_rover/ui/widgets/round_button.dart';
+import 'package:detector/helpers/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// Grid widget to select the grid size, start position and obstacles
 class MarsGrid extends StatefulWidget {
   const MarsGrid({
     super.key,
@@ -49,21 +51,7 @@ class _MarsGridState extends State<MarsGrid> {
       extendBodyBehindAppBar: true,
       body: BlocConsumer<GridCubit, GridState>(
         bloc: gridCubit,
-        listener: (context, state) {
-          state.mapOrNull(
-            startPosition: (_) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  backgroundColor: Colors.red,
-                  content: Text(
-                    'Now Add the Obstacles',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              );
-            },
-          );
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           return ColoredBox(
               color: Colors.black,
@@ -93,6 +81,18 @@ class _MarsGridState extends State<MarsGrid> {
                             if (gridState == GridStateEnum.startPosition) {
                               gridCubit.addStartPosition(
                                   Offset(column.toDouble(), row.toDouble()));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  backgroundColor: Colors.red,
+                                  duration: Duration(seconds: 1),
+                                  content: Text(
+                                    'Now Add the Obstacles',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              );
                               gridCubit.gridState = GridStateEnum.obstacles;
                             } else {
                               setState(() {
@@ -138,6 +138,7 @@ class _MarsGridState extends State<MarsGrid> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       backgroundColor: Colors.blue,
+                                      duration: Duration(seconds: 1),
                                       content: Text(
                                         'Select Start Position',
                                         style: TextStyle(

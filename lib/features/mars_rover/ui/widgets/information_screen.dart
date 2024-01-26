@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Widget to show information of the mars rover
 class InformationScreen extends StatelessWidget {
   const InformationScreen({
     super.key,

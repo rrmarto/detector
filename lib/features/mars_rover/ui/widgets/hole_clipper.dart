@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+/// Clipper to draw a hole in the middle of the screen
 class HoleClipper extends CustomClipper<Path> {
   final double diameter;
   HoleClipper({

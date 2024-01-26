@@ -6,13 +6,22 @@ import 'package:detector/helpers/enums.dart';
 import 'package:detector/helpers/exceptions.dart';
 import 'package:flutter/material.dart';
 
+
+/// Mars Rover interface
 abstract class MarsRover {
+  /// Execute the command
   void executeCommand();
+/// Move forward
   void moveForward();
+  /// Turn left
   void turnLeft();
+  /// Turn right
   void turnRight();
+  /// Get the position
   Offset getPosition();
+  /// Check if there is an obstacle
   (bool, String) obstacleDetected(Offset position);
+  /// Stream to listen the position
   Stream<Offset> get roverStream;
 }
 

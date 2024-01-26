@@ -9,6 +9,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'mars_rover_cubit.freezed.dart';
 part 'mars_rover_state.dart';
 
+
+/// Cubit to handle the mars rover
 class MarsRoverCubit extends Cubit<MarsRoverState> {
   late MarsRover marsRover;
   MarsRoverCubit() : super(const MarsRoverState.initial());
@@ -38,6 +40,7 @@ class MarsRoverCubit extends Cubit<MarsRoverState> {
       onDone: () {
         emit(const MarsRoverState.finish());
       },
+      cancelOnError: true,
       onError: (e) {
         final (message, position) = e;
         emit(MarsRoverState.error(message: message, position: position));

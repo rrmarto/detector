@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Widget to show the grid
 class InteractiveGrid extends StatefulWidget {
   const InteractiveGrid({super.key, required this.grid});
   final Widget grid;

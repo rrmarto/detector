@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //TODO: Refactor this widget to use only one CustomPainter and CustomClipper
 
+/// Clippers and Painters to draw the border of the buttons
 class ButtonBorderClip extends CustomClipper<Path> {
   final double diameter;
   ButtonBorderClip({

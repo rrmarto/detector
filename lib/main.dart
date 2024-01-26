@@ -20,6 +20,7 @@ void main() {
           ),
         ],
         child: MaterialApp(
+            title: 'Mars Rover',
             theme: ThemeData(
               fontFamily: 'DIGI',
               colorScheme: ColorScheme.fromSeed(

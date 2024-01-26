@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+/// Decorated button
 class DecoratedButton extends StatelessWidget {
   const DecoratedButton({super.key, required this.text});
   final String text;

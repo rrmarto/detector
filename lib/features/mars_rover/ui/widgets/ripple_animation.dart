@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+/// Widget to a ripple animation in a widget
 class RippleAnimationWidget extends StatefulWidget {
   const RippleAnimationWidget({
     this.child,

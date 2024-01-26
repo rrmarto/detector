@@ -7,6 +7,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'grid_cubit.freezed.dart';
 part 'grid_state.dart';
 
+
+/// Cubit to handle the grid
 class GridCubit extends Cubit<GridState> {
   GridStateEnum _gridState = GridStateEnum.initial;
   Offset _startPosition = Offset.zero;
@@ -60,9 +62,3 @@ class GridCubit extends Cubit<GridState> {
   }
 }
 
-enum GridStateEnum {
-  initial,
-  startPosition,
-  obstacles,
-  finished,
-}

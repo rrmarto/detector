@@ -2,6 +2,8 @@ import 'package:detector/features/mars_rover/ui/widgets/button_border_clipped.da
 import 'package:detector/features/mars_rover/ui/widgets/decorated_button.dart';
 import 'package:flutter/material.dart';
 
+
+/// Widget to show the left board actions
 class BoardActions extends StatelessWidget {
   const BoardActions({
     super.key,
