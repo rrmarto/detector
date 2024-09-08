@@ -13,6 +13,13 @@ jobs:
       # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v2
+        
+      # Set up Git user for commits
+      - name: Set up Git user info for commits
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Actions Bot"
+          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/rrmarto/detector.git    
 
       # Step 2: Set up Flutter environment
       - name: Set up Flutter
