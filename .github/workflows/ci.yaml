@@ -1,0 +1,120 @@
+name: Flutter Versioning and Release Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  versioning_and_build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Flutter environment
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+
+      # Step 3: Get the last git tag (version) and the latest commit messages
+      - name: Get last version tag
+        id: get_last_version
+        run: |
+          git fetch --tags
+          # Get the latest tag or default to v0.1.0 if no tags exist
+          LAST_VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.1.0")
+          echo "LAST_VERSION=$LAST_VERSION" >> $GITHUB_ENV
+          echo "LAST_VERSION: $LAST_VERSION"
+
+      # Step 4: Get latest commit messages
+      - name: Get latest commit messages
+        id: get_commits
+        run: |
+          # Get latest commit messages since the last version
+          COMMITS=$(git log ${{ env.LAST_VERSION }}..HEAD --oneline)
+          echo "COMMITS=$COMMITS" >> $GITHUB_ENV
+          echo "COMMITS: $COMMITS"
+
+      # Step 5: Determine the type of version bump (major, minor, patch)
+      - name: Determine version bump
+        id: determine_bump
+        run: |
+          MAJOR=0
+          MINOR=0
+          PATCH=0
+
+          # Check commit messages for keywords
+          if [[ "${{ env.COMMITS }}" =~ "BREAKING CHANGE" ]]; then
+            MAJOR=1
+          elif [[ "${{ env.COMMITS }}" =~ "feat" ]]; then
+            MINOR=1
+          elif [[ "${{ env.COMMITS }}" =~ "fix" ]]; then
+            PATCH=1
+          else
+            PATCH=1 # Default to patch if no matches
+          fi
+
+          echo "MAJOR=$MAJOR" >> $GITHUB_ENV
+          echo "MINOR=$MINOR" >> $GITHUB_ENV
+          echo "PATCH=$PATCH" >> $GITHUB_ENV
+
+      # Step 6: Update the pubspec.yaml with the new version and build number
+      - name: Update pubspec.yaml version
+        run: |
+          # Read current version from pubspec.yaml
+          CURRENT_VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')
+          echo "Current version: $CURRENT_VERSION"
+
+          # Split the version into MAJOR.MINOR.PATCH+BUILD
+          VERSION=$(echo $CURRENT_VERSION | cut -d '+' -f 1)
+          BUILD=$(echo $CURRENT_VERSION | cut -d '+' -f 2)
+          MAJOR=$(echo $VERSION | cut -d '.' -f 1)
+          MINOR=$(echo $VERSION | cut -d '.' -f 2)
+          PATCH=$(echo $VERSION | cut -d '.' -f 3)
+
+          # Increment build number
+          NEW_BUILD=$((BUILD + 1))
+
+          # Apply version bump
+          if [ "${{ env.MAJOR }}" -eq 1 ]; then
+            NEW_MAJOR=$((MAJOR + 1))
+            NEW_VERSION="$NEW_MAJOR.0.0"
+          elif [ "${{ env.MINOR }}" -eq 1 ]; then
+            NEW_MINOR=$((MINOR + 1))
+            NEW_VERSION="$MAJOR.$NEW_MINOR.0"
+          else
+            NEW_PATCH=$((PATCH + 1))
+            NEW_VERSION="$MAJOR.$MINOR.$NEW_PATCH"
+          fi
+
+          # Combine with new build number
+          FINAL_VERSION="$NEW_VERSION+$NEW_BUILD"
+          echo "New version: $FINAL_VERSION"
+
+          # Update pubspec.yaml
+          sed -i "s/^version:.*/version: $FINAL_VERSION/" pubspec.yaml
+
+      # Step 7: Commit and push version changes
+      - name: Commit version changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add pubspec.yaml
+          git commit -m "ci: bump version to $FINAL_VERSION"
+          git tag "v$FINAL_VERSION"
+          git push origin main --tags
+
+      # Step 8: Build the release APK
+      - name: Build Flutter release APK
+        run: flutter build apk --release
+
+      # Step 9: Upload the APK as an artifact
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
