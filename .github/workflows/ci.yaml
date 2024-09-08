@@ -18,7 +18,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
+          flutter-version: '3.22.2'
 
       # Step 3: Get the last git tag (version) and the latest commit messages
       - name: Get last version tag
