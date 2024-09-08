@@ -18,26 +18,31 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.2'
+          flutter-version: 'stable'
 
-      # Step 3: Get the last git tag (version) and the latest commit messages
+      # Step 3: Get the last git tag (version) if it exists
       - name: Get last version tag
         id: get_last_version
         run: |
           git fetch --tags
-          # Get the latest tag or default to v0.1.0 if no tags exist
-          LAST_VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.1.0")
+          # Get the last tag or indicate that no tags exist
+          LAST_VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "none")
           echo "LAST_VERSION=$LAST_VERSION" >> $GITHUB_ENV
-          echo "LAST_VERSION: $LAST_VERSION"
+          echo "Last version: $LAST_VERSION"
 
       # Step 4: Get latest commit messages
       - name: Get latest commit messages
         id: get_commits
         run: |
-          # Get latest commit messages since the last version
-          COMMITS=$(git log ${{ env.LAST_VERSION }}..HEAD --oneline)
+          if [ "${{ env.LAST_VERSION }}" = "none" ]; then
+            # If no tags exist, get all commits from the initial commit
+            COMMITS=$(git log --oneline)
+          else
+            # If a previous tag exists, get commits from that tag onward
+            COMMITS=$(git log ${{ env.LAST_VERSION }}..HEAD --oneline)
+          fi
           echo "COMMITS=$COMMITS" >> $GITHUB_ENV
-          echo "COMMITS: $COMMITS"
+          echo "Commit log: $COMMITS"
 
       # Step 5: Determine the type of version bump (major, minor, patch)
       - name: Determine version bump
