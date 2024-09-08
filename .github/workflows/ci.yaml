@@ -13,7 +13,7 @@ jobs:
       # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v2
-        
+
       # Set up Git user for commits
       - name: Set up Git user info for commits
         run: |
@@ -113,8 +113,6 @@ jobs:
       # Step 7: Commit and push version changes
       - name: Commit version changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
           git add pubspec.yaml
           git commit -m "ci: bump version to $FINAL_VERSION"
           git tag "v$FINAL_VERSION"
